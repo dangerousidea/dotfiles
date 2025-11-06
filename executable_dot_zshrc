@@ -1,0 +1,46 @@
+[[ -r ~/zsh/znap/znap.zsh ]] ||
+    git clone --depth 1 -- \
+        https://github.com/marlonrichert/zsh-snap.git ~/zsh/znap
+
+eval "$(atuin init zsh)"
+
+source ~/zsh/znap/znap.zsh  # Start Znap
+
+#set -x
+
+#znap prompt agnoster/agnoster-zsh-theme
+znap prompt sindresorhus/pure
+
+# `znap source` automatically downloads and starts your plugins.
+#znap source marlonrichert/zsh-autocomplete
+
+ZSH_AUTOSUGGEST_STRATEGY=( completion match_prev_cmd )
+znap source zsh-users/zsh-autosuggestions
+
+ZSH_HIGHLIGHT_HIGHLIGHTERS=( main brackets )
+znap source zsh-users/zsh-syntax-highlighting
+znap source agkozak/zsh-z
+
+znap eval iterm2 'curl -fsSL https://iterm2.com/shell_integration/zsh'
+
+export LC_ALL=en_US.UTF-8
+
+#export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+
+zstyle :omz:plugins:ssh-agent agent-forwarding on
+
+codecopy() pygmentize -f rtf $1 | pbcopy
+
+# To fix SSL link issue during Python libraries installation
+#export LDFLAGS="-I/usr/local/opt/openssl/include -L/usr/local/opt/openssl/lib"
+
+export KUBE_EDITOR=nvim
+[[ -f ~/.profile ]] && source ~/.profile
+
+function gam() { "/Users/$USER/bin/gam/gam" "$@" ; }
+
+#eval "$(oh-my-posh prompt init zsh --config ~/.default.omp.json)"
+export PATH="/opt/homebrew/opt/mysql-client/bin:/Users/$USER/bin:$PATH"
+
+[[ -f ~/.alias ]] && source ~/.alias
+
